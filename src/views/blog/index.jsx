@@ -3,7 +3,7 @@ import { Container, Image } from "react-bootstrap";
 import { withRouter } from "react-router";
 import BlogAuthor from "../../components/blog/blog-author";
 import BlogLike from "../../components/likes/BlogLike";
-//import posts from "../../data/posts.json";  Maybe instead of file, fetch?
+//import posts from "../../data/posts.json";
 import "./styles.css";
 class Blog extends Component {
   state = {
@@ -66,6 +66,17 @@ class Blog extends Component {
             </div>
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+            <h3>Comments</h3>
+            <div className="d-flex mt-3 justify-content-between">
+              {
+                blog.comments.map(comment => (
+                  <div className="d-flex flex-column align-items-baseline">
+                  <h4 className="d-inline">{comment.name}</h4>
+                  <p className="p-0">-{comment.message}</p>
+                  </div>
+                ))
+              }
+            </div>
           </Container>
         </div>
       );
