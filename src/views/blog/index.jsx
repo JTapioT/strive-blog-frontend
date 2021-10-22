@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Image } from "react-bootstrap";
+import { Container, Image, Button } from "react-bootstrap";
 import { withRouter } from "react-router";
 import BlogAuthor from "../../components/blog/blog-author";
 import BlogLike from "../../components/likes/BlogLike";
@@ -12,19 +12,40 @@ class Blog extends Component {
   };
 
   async fetchBlogPost() {
-    // Fetch all blog posts:
-    let response = await fetch("http://localhost:3001/blogPosts");
+    try {
+      // Fetch all blog posts:
+      let response = await fetch("http://localhost:3001/blogPosts");
 
-    if (response.ok) {
-      let blogPosts = await response.json();
-      // Find blog post by id:
-      const { id } = this.props.match.params;
-      const blog = blogPosts.find((post) => post._id.toString() === id)
-      if (blog) {
-        this.setState({ blog, loading: false });
-      } else {
-        this.props.history.push("/404");
+      if (response.ok) {
+        let blogPosts = await response.json();
+        // Find blog post by id:
+        const { id } = this.props.match.params;
+        const blog = blogPosts.find((post) => post._id.toString() === id);
+        if (blog) {
+          this.setState({ blog, loading: false });
+        } else {
+          this.props.history.push("/404");
+        }
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async deleteComment({ id }) {
+    try {
+      let response = await fetch(
+        `http://localhost:3001/blogPosts/${this.state.blog._id}/comments/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Comment deletion successfull");
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -40,6 +61,7 @@ class Blog extends Component {
       this.props.history.push("/404");
     } */
   }
+  
 
   render() {
     const { loading, blog } = this.state;
@@ -67,15 +89,26 @@ class Blog extends Component {
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
             <h3>Comments</h3>
-            <div className="d-flex mt-3 justify-content-between">
-              {
-                blog.comments.map(comment => (
-                  <div className="d-flex flex-column align-items-baseline">
+            <div className="d-flex mt-5 justify-content-between">
+              {blog.comments.map((comment) => (
+                <div
+                  key={comment.id}
+                  className="d-flex flex-column align-items-baseline p-3"
+                  style={{ border: "1px solid black", borderRadius: "20px" }}
+                >
                   <h4 className="d-inline">{comment.name}</h4>
                   <p className="p-0">-{comment.message}</p>
-                  </div>
-                ))
-              }
+                  <Button
+                    variant="danger"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.deleteComment({ id: comment.id });
+                    }}
+                  >
+                    Remove comment
+                  </Button>
+                </div>
+              ))}
             </div>
           </Container>
         </div>

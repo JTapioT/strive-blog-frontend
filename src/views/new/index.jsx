@@ -6,36 +6,50 @@ import "./styles.css";
 export default class NewBlogPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: "", category: "", title: "" };
+    this.state = { text: "", category: "", title: "", commentDeleted: false };
     this.handleChange = this.handleChange.bind(this);
     this.formData = new FormData();
   }
 
-  /* 
-  formData.append("coverPhoto", file);
-  
-  */
 
   async submitBlogPost(e) {
     e.preventDefault();
     console.log(this.state);
+    let blogId;
 
-    /* let response = await fetch("http://localhost:3001/blogPosts", {
+    // readTime, cover and author data now just hard-coded within request body:
+
+    let response = await fetch("http://localhost:3001/blogPosts", {
       method: "POST",
-      body: JSON.stringify(this.state),
       headers: {
         'Content-Type': "application/json"
+      },
+      body: JSON.stringify({content: this.state.text, category: this.state.category, title: this.state.category, readTime: {value: 2, unit: "minutes"}, author: {name: "John Doe", avatar: "https://ui-avatars.com/api/?name=John+Doe"}})
+    })
+
+      if(response.ok && this.formData.get("coverPhoto")) {
+        blogId = (await response.json())._id;
+        console.log(blogId);
+        
+        let imgUploadResponse = await fetch(`http://localhost:3001/blogPosts/${blogId}/uploadCover`, {
+          method: "POST",
+          body: this.formData
+        })
+
+        if(imgUploadResponse.ok) {
+          let data = await imgUploadResponse.json();
+          this.setState({...this.state, commentDeleted: true})
+          console.log(data);
+        }
       }
     }
-    ); */
 
-    //
 
-  }
 
   handleChange(value) {
     this.setState({ text: value });
   }
+
 
   render() {
     return (
@@ -89,7 +103,7 @@ export default class NewBlogPost extends Component {
               type="file"
               id="blogCoverSubmit"
               onChange={(event) => {
-                console.log(event.target.files[0])
+                //console.log(event.target.files[0])
                 this.formData.append("coverPhoto", event.target.files[0]);
               }}
             />
