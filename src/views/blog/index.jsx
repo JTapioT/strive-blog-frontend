@@ -50,11 +50,13 @@ class Blog extends Component {
   }
 
   async postComment(e) {
+
+    console.log(this.state.name, this.state.commentMsg);
     try {
       e.preventDefault()
       let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments`, {
         method: "POST",
-        body: {name: this.state.name, message: this.state.commentMsg}
+        body: JSON.stringify({name: this.state.name, message: this.state.commentMsg})
       });
       if(response.ok) {
         console.log("Comment posted successfully");
@@ -103,55 +105,51 @@ class Blog extends Component {
             </div>
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
-            <hr/>
-            <h3>Comments</h3>
+            <hr />
             <div>
               <h4 className="text-center">Add a comment</h4>
               <div className="d-flex justify-content-center">
-              <Form
-                className="mt-2"
-                style={{width: "40vw"}}
-                onSubmit={(e) => {
-                  this.postComment(e);
-                }}
-              >
-                <Form.Group controlId="comment-form" className="mt-3">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control
-                    size="sm"
-                    placeholder="Your name"
-                    value={this.state.name}
-                    onChange={(e) =>
-                      this.setState({ ...this.state, name: e.target.value })
-                    }
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="commentArea">
-                  <Form.Label>Add your comment</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={2}
-                    placeholder="Add your comment here"
-                    value={this.state.commentMsg}
-                    onChange={(e) =>
-                      this.setState({
-                        ...this.state,
-                        commentMsg: e.target.value,
-                      })
-                    }
-                  />
-                </Form.Group>
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="outline-dark"
+                <Form
+                  className="mt-2"
+                  style={{ width: "40vw" }}
+                  onSubmit={(e) => {
+                    this.postComment(e);
+                  }}
                 >
-                  Add your comment
-                </Button>
-              </Form>
+                  <Form.Group controlId="comment-form" className="mt-3">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                      size="sm"
+                      placeholder="Your name"
+                      value={this.state.name}
+                      onChange={(e) =>
+                        this.setState({ ...this.state, name: e.target.value })
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="commentArea">
+                    <Form.Label>Add your comment</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={2}
+                      placeholder="Add your comment here"
+                      value={this.state.commentMsg}
+                      onChange={(e) =>
+                        this.setState({
+                          ...this.state,
+                          commentMsg: e.target.value,
+                        })
+                      }
+                    />
+                  </Form.Group>
+                  <Button type="submit" size="lg" variant="outline-dark">
+                    Add your comment
+                  </Button>
+                </Form>
               </div>
             </div>
-            <hr/>
+            <hr />
+            <h3>Comments</h3>
             <div className="mt-5">
               {blog.comments.map((comment) => (
                 <>
@@ -170,7 +168,7 @@ class Blog extends Component {
                       Remove comment
                     </Button>
                   </div>
-                <hr/>
+                  <hr />
                 </>
               ))}
             </div>
