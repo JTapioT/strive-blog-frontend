@@ -38,7 +38,7 @@ class Blog extends Component {
         method: "DELETE"
       })
       if(response.ok) {
-        console.log("Blog post deleted successfully");
+        alert("Blog post deleted successfully");
         this.props.history.push(`${process.env.REACT_APP_BE_PROD_URL}`);
       }
     } catch (error) {
@@ -64,8 +64,6 @@ class Blog extends Component {
   }
 
   async postComment(e) {
-    e.preventDefault()
-    console.log(this.state.name, this.state.commentMsg);
     try {
       let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments`, {
         method: "POST",
@@ -132,6 +130,7 @@ class Blog extends Component {
                   className="mt-2"
                   style={{ width: "40vw" }}
                   onSubmit={(e) => {
+                    e.preventDefault();
                     this.postComment(e);
                   }}
                 >
@@ -191,6 +190,14 @@ class Blog extends Component {
                 </>
               ))}
             </div>
+            <Button
+            variant="outline-danger"
+            size="lg"
+            onClick={(e) => {
+              e.preventDefault();
+              this.deleteBlogPost()
+            }}
+            >DELETE BLOG POST</Button>
           </Container>
         </div>
       );
