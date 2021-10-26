@@ -11,10 +11,13 @@ class Blog extends Component {
     loading: true,
   };
 
+
   async fetchBlogPost() {
     try {
       // Fetch all blog posts:
-      let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts`);
+      let response = await fetch(
+        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts`
+      );
 
       if (response.ok) {
         let blogPosts = await response.json();
@@ -34,10 +37,13 @@ class Blog extends Component {
 
   async deleteBlogPost() {
     try {
-      let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}`, {
-        method: "DELETE"
-      })
-      if(response.ok) {
+      let response = await fetch(
+        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
         alert("Blog post deleted successfully");
         this.props.history.push(`/`);
       }
@@ -65,17 +71,20 @@ class Blog extends Component {
 
   async postComment(e) {
     try {
-      let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments`, {
-        method: "POST",
-        body: JSON.stringify({
-          name: this.state.name, 
-          message: this.state.commentMsg
-        }),
-        headers: {
-          'Content-Type': "application/json"
+      let response = await fetch(
+        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name: this.state.name,
+            message: this.state.commentMsg,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
-      if(response.ok) {
+      );
+      if (response.ok) {
         console.log("Comment posted successfully");
       }
     } catch (error) {
@@ -95,7 +104,6 @@ class Blog extends Component {
       this.props.history.push("/404");
     } */
   }
-
 
   render() {
     const { loading, blog } = this.state;
@@ -191,13 +199,15 @@ class Blog extends Component {
               ))}
             </div>
             <Button
-            variant="outline-danger"
-            size="lg"
-            onClick={(e) => {
-              e.preventDefault();
-              this.deleteBlogPost()
-            }}
-            >DELETE BLOG POST</Button>
+              variant="outline-danger"
+              size="lg"
+              onClick={(e) => {
+                e.preventDefault();
+                this.deleteBlogPost();
+              }}
+            >
+              DELETE BLOG POST
+            </Button>
           </Container>
         </div>
       );

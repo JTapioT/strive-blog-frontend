@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 import { Container, Form, Button } from "react-bootstrap";
+import { withRouter } from "react-router";
 import "./styles.css";
-export default class NewBlogPost extends Component {
+class NewBlogPost extends Component {
   constructor(props) {
     super(props);
     this.state = { text: "", category: "", title: "", commentDeleted: false };
     this.handleChange = this.handleChange.bind(this);
     this.formData = new FormData();
   }
-
 
 
   async submitBlogPost(e) {
@@ -41,7 +41,10 @@ export default class NewBlogPost extends Component {
           let data = await imgUploadResponse.json();
           this.setState({...this.state, commentDeleted: true})
           console.log(data);
+          this.props.history.push("/");
         }
+      } else {
+        this.props.history.push("/");
       }
     }
 
@@ -124,3 +127,5 @@ export default class NewBlogPost extends Component {
     );
   }
 }
+
+export default withRouter(NewBlogPost);
