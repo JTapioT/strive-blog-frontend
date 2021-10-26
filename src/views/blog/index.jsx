@@ -106,7 +106,7 @@ class Blog extends Component {
             <hr/>
             <h3>Comments</h3>
             <div>
-              <h4>Add a comment</h4>
+              <h4 className="text-center">Add a comment</h4>
               <div className="d-flex justify-content-center">
               <Form
                 className="mt-2"
@@ -151,6 +151,7 @@ class Blog extends Component {
               </Form>
               </div>
             </div>
+            <hr/>
             <div className="mt-5">
               {blog.comments.map((comment) => (
                 <>
