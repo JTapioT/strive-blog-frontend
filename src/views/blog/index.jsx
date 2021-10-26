@@ -89,7 +89,7 @@ class Blog extends Component {
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
             <h3>Comments</h3>
-            <div className="d-flex mt-5 justify-content-between">
+            <div className="mt-5 justify-content-between">
               {blog.comments.map((comment) => (
                 <div
                   key={comment.id}
