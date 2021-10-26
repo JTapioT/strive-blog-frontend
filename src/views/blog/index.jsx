@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Image, Button } from "react-bootstrap";
+import { Container, Image, Button, Form } from "react-bootstrap";
 import { withRouter } from "react-router";
 import BlogAuthor from "../../components/blog/blog-author";
 import BlogLike from "../../components/likes/BlogLike";
@@ -49,6 +49,21 @@ class Blog extends Component {
     }
   }
 
+  async postComment(e) {
+    try {
+      e.preventDefault()
+      let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments`, {
+        method: "POST",
+        body: {name: this.state.name, message: this.state.commentMsg}
+      });
+      if(response.ok) {
+        console.log("Comment posted successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   componentDidMount() {
     this.fetchBlogPost();
 
@@ -80,7 +95,7 @@ class Blog extends Component {
               </div>
               <div className="blog-details-info">
                 <div>{blog.createdAt.slice(0, 10)}</div>
-                <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div>
+                <div>{`${blog.readTime.value} ${blog.readTime.unit}`}</div>
                 <div style={{ marginTop: 20 }}>
                   <BlogLike defaultLikes={["123"]} onChange={console.log} />
                 </div>
@@ -89,6 +104,50 @@ class Blog extends Component {
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
             <h3>Comments</h3>
+            <div>
+              <h4>Add a comment</h4>
+              <Form
+                className="mt-5"
+                onSubmit={(e) => {
+                  this.postComment(e);
+                }}
+              >
+                <Form.Group controlId="comment-form" className="mt-3">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    size="sm"
+                    placeholder="Your name"
+                    value={this.state.name}
+                    onChange={(e) =>
+                      this.setState({ ...this.state, name: e.target.value })
+                    }
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="commentArea">
+                  <Form.Label>Add your comment</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={2}
+                    placeholder="Add your comment here"
+                    value={this.state.commentMsg}
+                    onChange={(e) =>
+                      this.setState({
+                        ...this.state,
+                        commentMsg: e.target.value,
+                      })
+                    }
+                  />
+                </Form.Group>
+                <Button
+                  type="submit"
+                  size="lg"
+                  variant="outline-dark"
+                  style={{ marginLeft: "1em" }}
+                >
+                  Add your comment
+                </Button>
+              </Form>
+            </div>
             <div className="mt-5">
               {blog.comments.map((comment) => (
                 <div
@@ -97,7 +156,9 @@ class Blog extends Component {
                 >
                   <div key={comment.id} className="p-3" className="w-100">
                     <h5 className="d-inline">{comment.name}</h5>
-                    <p className="p-0" style={{fontStyle: "italic"}}>{comment.message}</p>
+                    <p className="p-0" style={{ fontStyle: "italic" }}>
+                      {comment.message}
+                    </p>
                     <Button
                       variant="light"
                       onClick={(e) => {
