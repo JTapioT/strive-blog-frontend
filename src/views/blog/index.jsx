@@ -107,9 +107,10 @@ class Blog extends Component {
             <h3>Comments</h3>
             <div>
               <h4>Add a comment</h4>
+              <div className="d-flex justify-content-center">
               <Form
-                className="mt-2 text-center"
-                style={{width: "50vw"}}
+                className="mt-2"
+                style={{width: "40vw"}}
                 onSubmit={(e) => {
                   this.postComment(e);
                 }}
@@ -148,14 +149,12 @@ class Blog extends Component {
                   Add your comment
                 </Button>
               </Form>
+              </div>
             </div>
             <div className="mt-5">
               {blog.comments.map((comment) => (
-                <div
-                  className="p-3 mt-1"
-                  style={{ border: "1px solid black", borderRadius: "20px" }}
-                >
-                  <div key={comment.id} className="p-3" className="w-100">
+                <>
+                  <div key={comment.id} className="p-3 mt-2">
                     <h5 className="d-inline">{comment.name}</h5>
                     <p className="p-0" style={{ fontStyle: "italic" }}>
                       {comment.message}
@@ -170,7 +169,8 @@ class Blog extends Component {
                       Remove comment
                     </Button>
                   </div>
-                </div>
+                <hr/>
+                </>
               ))}
             </div>
           </Container>
