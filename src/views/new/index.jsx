@@ -25,7 +25,7 @@ export default class NewBlogPost extends Component {
       headers: {
         'Content-Type': "application/json"
       },
-      body: JSON.stringify({content: this.state.text, category: this.state.category, title: this.state.category, readTime: {value: 2, unit: "minutes"}, author: {name: "John Doe", avatar: "https://ui-avatars.com/api/?name=John+Doe"}})
+      body: JSON.stringify({content: this.state.text, category: this.state.category, title: this.state.title, readTime: {value: 2, unit: "minutes"}, author: {name: "John Doe", avatar: "https://ui-avatars.com/api/?name=John+Doe"}})
     })
 
       if(response.ok && this.formData.get("coverPhoto")) {
