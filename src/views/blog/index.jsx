@@ -39,7 +39,7 @@ class Blog extends Component {
       })
       if(response.ok) {
         alert("Blog post deleted successfully");
-        this.props.history.push(`${process.env.REACT_APP_BE_PROD_URL}`);
+        this.props.history.push(`/`);
       }
     } catch (error) {
       console.log(error);
