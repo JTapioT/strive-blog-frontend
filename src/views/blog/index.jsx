@@ -103,11 +103,13 @@ class Blog extends Component {
             </div>
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+            <hr/>
             <h3>Comments</h3>
             <div>
               <h4>Add a comment</h4>
               <Form
-                className="mt-5"
+                className="mt-2 text-center"
+                style={{width: "50vw"}}
                 onSubmit={(e) => {
                   this.postComment(e);
                 }}
@@ -142,7 +144,6 @@ class Blog extends Component {
                   type="submit"
                   size="lg"
                   variant="outline-dark"
-                  style={{ marginLeft: "1em" }}
                 >
                   Add your comment
                 </Button>
@@ -151,7 +152,7 @@ class Blog extends Component {
             <div className="mt-5">
               {blog.comments.map((comment) => (
                 <div
-                  className="p-3"
+                  className="p-3 mt-1"
                   style={{ border: "1px solid black", borderRadius: "20px" }}
                 >
                   <div key={comment.id} className="p-3" className="w-100">
@@ -160,7 +161,7 @@ class Blog extends Component {
                       {comment.message}
                     </p>
                     <Button
-                      variant="light"
+                      variant="outline-dark"
                       onClick={(e) => {
                         e.preventDefault();
                         this.deleteComment({ id: comment.id });
