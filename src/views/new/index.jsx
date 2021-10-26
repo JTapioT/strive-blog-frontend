@@ -32,10 +32,10 @@ export default class NewBlogPost extends Component {
         blogId = (await response.json())._id;
         console.log(blogId);
         
-        {/*let imgUploadResponse = await fetch(`,{
+      let imgUploadResponse = await fetch(`http://localhost:3001/upload,{
           method: "POST",
           body: this.formData
-        })*/}
+        })
 
         if(imgUploadResponse.ok) {
           let data = await imgUploadResponse.json();
