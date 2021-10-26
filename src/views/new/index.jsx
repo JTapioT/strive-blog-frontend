@@ -12,6 +12,7 @@ export default class NewBlogPost extends Component {
   }
 
 
+
   async submitBlogPost(e) {
     e.preventDefault();
     console.log(this.state);
@@ -19,7 +20,7 @@ export default class NewBlogPost extends Component {
 
     // readTime, cover and author data now just hard-coded within request body:
 
-    let response = await fetch("http://localhost:3001/blogPosts", {
+    let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts`, {
       method: "POST",
       headers: {
         'Content-Type': "application/json"
@@ -31,7 +32,7 @@ export default class NewBlogPost extends Component {
         blogId = (await response.json())._id;
         console.log(blogId);
         
-        let imgUploadResponse = await fetch(`http://localhost:3001/blogPosts/${blogId}/uploadCover`, {
+        let imgUploadResponse = await fetch(`${process.env.REACT_APP_BE_URL}/blogPosts/${blogId}/uploadCover`, {
           method: "POST",
           body: this.formData
         })

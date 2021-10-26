@@ -61,7 +61,7 @@ class Blog extends Component {
       this.props.history.push("/404");
     } */
   }
-  
+
 
   render() {
     const { loading, blog } = this.state;
@@ -79,7 +79,7 @@ class Blog extends Component {
                 <BlogAuthor {...blog.author} />
               </div>
               <div className="blog-details-info">
-                <div>{blog.createdAt}</div>
+                <div>{blog.createdAt.slice(0,10)}</div>
                 <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div>
                 <div style={{ marginTop: 20 }}>
                   <BlogLike defaultLikes={["123"]} onChange={console.log} />
