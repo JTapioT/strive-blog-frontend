@@ -89,8 +89,9 @@ class Blog extends Component {
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
             <h3>Comments</h3>
-            <div className="mt-5 justify-content-between">
+            <div className="mt-5">
               {blog.comments.map((comment) => (
+                <div className="p-1">
                 <div
                   key={comment.id}
                   className="p-3"
@@ -108,6 +109,7 @@ class Blog extends Component {
                   >
                     Remove comment
                   </Button>
+                </div>
                 </div>
               ))}
             </div>
