@@ -8,7 +8,7 @@ export default class BlogList extends Component {
   };
 
   async fetchBlogPosts() {
-    let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}`);
+    let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts`);
     if (response.ok) {
       let blogPosts = await response.json();
       this.setState({
