@@ -93,7 +93,8 @@ class Blog extends Component {
               {blog.comments.map((comment) => (
                 <div
                   key={comment.id}
-                  className="d-flex flex-column align-items-baseline p-3"
+                  className="p-3"
+                  className="w-100"
                   style={{ border: "1px solid black", borderRadius: "20px" }}
                 >
                   <h4 className="d-inline">{comment.name}</h4>
