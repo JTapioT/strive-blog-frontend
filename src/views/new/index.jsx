@@ -19,7 +19,6 @@ export default class NewBlogPost extends Component {
     let blogId;
 
     // readTime, cover and author data now just hard-coded within request body:
-
     let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts`, {
       method: "POST",
       headers: {
