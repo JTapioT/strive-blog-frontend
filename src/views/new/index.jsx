@@ -32,7 +32,7 @@ export default class NewBlogPost extends Component {
         blogId = (await response.json())._id;
         console.log(blogId);
         
-      let imgUploadResponse = await fetch("http://localhost:3001/upload",{
+      let imgUploadResponse = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/upload`,{
           method: "POST",
           body: this.formData
         })
