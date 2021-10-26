@@ -79,7 +79,7 @@ class Blog extends Component {
                 <BlogAuthor {...blog.author} />
               </div>
               <div className="blog-details-info">
-                <div>{blog.createdAt.slice(0,10)}</div>
+                <div>{blog.createdAt.slice(0, 10)}</div>
                 <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div>
                 <div style={{ marginTop: 20 }}>
                   <BlogLike defaultLikes={["123"]} onChange={console.log} />
@@ -91,25 +91,23 @@ class Blog extends Component {
             <h3>Comments</h3>
             <div className="mt-5">
               {blog.comments.map((comment) => (
-                <div className="p-1">
                 <div
-                  key={comment.id}
                   className="p-3"
-                  className="w-100"
                   style={{ border: "1px solid black", borderRadius: "20px" }}
                 >
-                  <h4 className="d-inline">{comment.name}</h4>
-                  <p className="p-0">-{comment.message}</p>
-                  <Button
-                    variant="danger"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      this.deleteComment({ id: comment.id });
-                    }}
-                  >
-                    Remove comment
-                  </Button>
-                </div>
+                  <div key={comment.id} className="p-3" className="w-100">
+                    <h5 className="d-inline">{comment.name}</h5>
+                    <p className="p-0" style={{fontStyle: "italic"}}>{comment.message}</p>
+                    <Button
+                      variant="light"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.deleteComment({ id: comment.id });
+                      }}
+                    >
+                      Remove comment
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
