@@ -45,13 +45,11 @@ export default class NewBlogPost extends Component {
       }
     }
 
-
-
   handleChange(value) {
     this.setState({ text: value });
   }
 
-
+  
   render() {
     return (
       <Container className="new-blog-container">
