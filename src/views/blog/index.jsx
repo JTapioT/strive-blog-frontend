@@ -32,6 +32,20 @@ class Blog extends Component {
     }
   }
 
+  async deleteBlogPost() {
+    try {
+      let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}`, {
+        method: "DELETE"
+      })
+      if(response.ok) {
+        console.log("Blog post deleted successfully");
+        this.props.history.push(`${process.env.REACT_APP_BE_PROD_URL}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async deleteComment({ id }) {
     try {
       let response = await fetch(
@@ -50,13 +64,18 @@ class Blog extends Component {
   }
 
   async postComment(e) {
-
+    e.preventDefault()
     console.log(this.state.name, this.state.commentMsg);
     try {
-      e.preventDefault()
       let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments`, {
         method: "POST",
-        body: JSON.stringify({name: this.state.name, message: this.state.commentMsg})
+        body: JSON.stringify({
+          name: this.state.name, 
+          message: this.state.commentMsg
+        }),
+        headers: {
+          'Content-Type': "application/json"
+        }
       });
       if(response.ok) {
         console.log("Comment posted successfully");
