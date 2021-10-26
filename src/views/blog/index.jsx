@@ -14,7 +14,7 @@ class Blog extends Component {
   async fetchBlogPost() {
     try {
       // Fetch all blog posts:
-      let response = await fetch("http://localhost:3001/blogPosts");
+      let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts`);
 
       if (response.ok) {
         let blogPosts = await response.json();
@@ -35,7 +35,7 @@ class Blog extends Component {
   async deleteComment({ id }) {
     try {
       let response = await fetch(
-        `http://localhost:3001/blogPosts/${this.state.blog._id}/comments/${id}`,
+        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments/${id}`,
         {
           method: "DELETE",
         }
