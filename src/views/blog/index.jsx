@@ -93,14 +93,17 @@ class Blog extends Component {
   }
 
   async downloadBlogPDF() {
-    try {
+    this.props.history.push(
+      `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/downloadPDF`
+    );
+/*     try {
       let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/downloadPDF`)
       if(response.ok) {
         console.log("Download successful");
       }
     } catch (error) {
       console.log(error);
-    }
+    } */
   }
 
   componentDidMount() {
@@ -223,8 +226,7 @@ class Blog extends Component {
             <Button
               variant="outline-success"
               size="lg"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 this.downloadBlogPDF();
               }}
             >
