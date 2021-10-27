@@ -92,6 +92,17 @@ class Blog extends Component {
     }
   }
 
+  async downloadBlogPDF() {
+    try {
+      let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/downloadPDF`)
+      if(response.ok) {
+        console.log("Download successful");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   componentDidMount() {
     this.fetchBlogPost();
 
@@ -199,11 +210,22 @@ class Blog extends Component {
               ))}
             </div>
             <Button
+              style={{marginRight: "1em"}}
               variant="outline-danger"
               size="lg"
               onClick={(e) => {
                 e.preventDefault();
                 this.deleteBlogPost();
+              }}
+            >
+              DELETE BLOG POST
+            </Button>
+            <Button
+              variant="outline-success"
+              size="lg"
+              onClick={(e) => {
+                e.preventDefault();
+                this.downloadBlogPDF();
               }}
             >
               DELETE BLOG POST
