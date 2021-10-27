@@ -92,19 +92,16 @@ class Blog extends Component {
     }
   }
 
-  async downloadBlogPDF() {
-    this.props.history.push(
-      `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/downloadPDF`
-    );
-/*     try {
+ /*  async downloadBlogPDF() {
+    try {
       let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/downloadPDF`)
       if(response.ok) {
         console.log("Download successful");
       }
     } catch (error) {
       console.log(error);
-    } */
-  }
+    }
+  } */
 
   componentDidMount() {
     this.fetchBlogPost();
@@ -213,7 +210,7 @@ class Blog extends Component {
               ))}
             </div>
             <Button
-              style={{marginRight: "1em"}}
+              style={{ marginRight: "1em" }}
               variant="outline-danger"
               size="lg"
               onClick={(e) => {
@@ -226,9 +223,7 @@ class Blog extends Component {
             <Button
               variant="outline-success"
               size="lg"
-              onClick={() => {
-                this.downloadBlogPDF();
-              }}
+              href={`${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/downloadPDF`}
             >
               DOWNLOAD BLOG POST
             </Button>
