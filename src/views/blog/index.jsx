@@ -228,7 +228,7 @@ class Blog extends Component {
                 this.downloadBlogPDF();
               }}
             >
-              DELETE BLOG POST
+              DOWNLOAD BLOG POST
             </Button>
           </Container>
         </div>
