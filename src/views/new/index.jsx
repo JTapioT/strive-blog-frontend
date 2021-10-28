@@ -7,7 +7,7 @@ import "./styles.css";
 class NewBlogPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: "", category: "", title: "", commentDeleted: false };
+    this.state = { text: "", category: "", title: "", email: "", commentDeleted: false };
     this.handleChange = this.handleChange.bind(this);
     this.formData = new FormData();
   }
@@ -24,7 +24,7 @@ class NewBlogPost extends Component {
       headers: {
         'Content-Type': "application/json"
       },
-      body: JSON.stringify({content: this.state.text, category: this.state.category, title: this.state.title, readTime: {value: 2, unit: "minutes"}, author: {name: "John Doe", avatar: "https://ui-avatars.com/api/?name=John+Doe"}})
+      body: JSON.stringify({content: this.state.text, category: this.state.category, title: this.state.title, email: this.state.email, readTime: {value: 2, unit: "minutes"}, author: {name: "John Doe", avatar: "https://ui-avatars.com/api/?name=John+Doe"}})
     })
 
       if(response.ok && this.formData.get("coverPhoto")) {
@@ -39,7 +39,6 @@ class NewBlogPost extends Component {
 
         if(imgUploadResponse.ok) {
           let data = await imgUploadResponse.json();
-          this.setState({...this.state, commentDeleted: true})
           console.log(data);
           this.props.history.push("/");
         }
@@ -62,6 +61,18 @@ class NewBlogPost extends Component {
             this.submitBlogPost(e);
           }}
         >
+          <Form.Group controlId="blog-form" className="mt-3">
+            <Form.Label>Author</Form.Label>
+            <Form.Control
+              size="lg"
+              type="email"
+              placeholder="Enter your email"
+              value={this.state.email}
+              onChange={(e) =>
+                this.setState({ ...this.state, email: e.target.value })
+              }
+            />
+          </Form.Group>
           <Form.Group controlId="blog-form" className="mt-3">
             <Form.Label>Title</Form.Label>
             <Form.Control
