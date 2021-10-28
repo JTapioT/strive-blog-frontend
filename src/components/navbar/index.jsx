@@ -13,6 +13,7 @@ export default class NavBar extends Component {
           </Navbar.Brand>
           <div className="d-flex">
           <Button
+            className="mr-2"
             href={`${process.env.REACT_APP_BE_PROD_URL}/authors/authorsCSV`}
             variant="outline-success"
             size="lg"
@@ -20,6 +21,7 @@ export default class NavBar extends Component {
             All authors
           </Button>
           <Button
+            className="mr-2"
             as={Link}
             to="/register"
             variant="outline-success"
