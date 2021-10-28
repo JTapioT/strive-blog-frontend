@@ -11,11 +11,18 @@ export default class NavBar extends Component {
           <Navbar.Brand as={Link} to="/">
             <img className="blog-navbar-brand" alt="logo" src={logo} />
           </Navbar.Brand>
-
+          <div>
+          <Button
+            href={`${process.env.REACT_APP_BE_PROD_URL}/authors/authorsCSV`}
+            variant="outline-success"
+            size="lg"
+          >
+            All authors
+          </Button>
           <Button
             as={Link}
             to="/register"
-            className="outline-success"
+            variant="outline-success"
             size="lg"
           >
             <svg
@@ -48,6 +55,7 @@ export default class NavBar extends Component {
             </svg>
             Post Article
           </Button>
+          </div>
         </Container>
       </Navbar>
     );
