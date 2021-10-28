@@ -4,7 +4,6 @@ import Footer from "./components/footer";
 import Home from "./views/home";
 import Blog from "./views/blog";
 import NewBlogPost from "./views/new";
-import Register from "./views/register";
 import { BrowserRouter, Route } from "react-router-dom";
 
 
