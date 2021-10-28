@@ -11,7 +11,7 @@ export default class NavBar extends Component {
           <Navbar.Brand as={Link} to="/">
             <img className="blog-navbar-brand" alt="logo" src={logo} />
           </Navbar.Brand>
-          <div>
+          <div className="d-flex">
           <Button
             href={`${process.env.REACT_APP_BE_PROD_URL}/authors/authorsCSV`}
             variant="outline-success"
