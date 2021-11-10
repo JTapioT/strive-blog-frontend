@@ -22,7 +22,7 @@ class NewBlogPost extends Component {
     let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts`, {
       method: "POST",
       headers: {
-        'Content-Type': "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({content: this.state.text, category: this.state.category, title: this.state.title, email: this.state.email, readTime: {value: 2, unit: "minutes"}, author: {name: "John Doe", avatar: "https://ui-avatars.com/api/?name=John+Doe"}})
     })

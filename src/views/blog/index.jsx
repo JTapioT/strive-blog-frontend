@@ -9,21 +9,20 @@ class Blog extends Component {
   state = {
     blog: {},
     loading: true,
+    commentMsg: "",
   };
 
 
   async fetchBlogPost() {
     try {
-      // Fetch all blog posts:
+      // Fetch blog post:
       let response = await fetch(
-        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts`
+        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.props.match.params.id}`
       );
 
       if (response.ok) {
-        let blogPosts = await response.json();
-        // Find blog post by id:
-        const { id } = this.props.match.params;
-        const blog = blogPosts.find((post) => post._id.toString() === id);
+        let blog = await response.json();
+
         if (blog) {
           this.setState({ blog, loading: false });
         } else {
@@ -77,7 +76,7 @@ class Blog extends Component {
           method: "POST",
           body: JSON.stringify({
             name: this.state.name,
-            message: this.state.commentMsg,
+            comment: this.state.commentMsg,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -190,16 +189,16 @@ class Blog extends Component {
             <div className="mt-5">
               {blog.comments.map((comment) => (
                 <>
-                  <div key={comment.id} className="p-3 mt-2">
+                  <div key={comment._id} className="p-3 mt-2">
                     <h5 className="d-inline">{comment.name}</h5>
                     <p className="p-0" style={{ fontStyle: "italic" }}>
-                      {comment.message}
+                      {comment.comment}
                     </p>
                     <Button
                       variant="outline-dark"
                       onClick={(e) => {
                         e.preventDefault();
-                        this.deleteComment({ id: comment.id });
+                        this.deleteComment({ id: comment._id });
                       }}
                     >
                       Remove comment
