@@ -8,7 +8,11 @@ export default class BlogList extends Component {
   };
 
   async fetchBlogPosts() {
-    let response = await fetch(`${process.env.REACT_APP_BE_PROD_URL}/blogPosts`);
+    let response = await fetch(`${process.env.REACT_APP_BE_URL}/blogPosts`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    });
     if (response.ok) {
       let blogPosts = (await response.json()).results;
       console.log(blogPosts);

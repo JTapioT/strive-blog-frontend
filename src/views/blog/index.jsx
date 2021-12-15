@@ -17,7 +17,7 @@ class Blog extends Component {
     try {
       // Fetch blog post:
       let response = await fetch(
-        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.props.match.params.id}`
+        `${process.env.REACT_APP_BE_URL}/blogPosts/${this.props.match.params.id}`
       );
 
       if (response.ok) {
@@ -37,7 +37,7 @@ class Blog extends Component {
   async deleteBlogPost() {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}`,
+        `${process.env.REACT_APP_BE_URL}/blogPosts/${this.state.blog._id}`,
         {
           method: "DELETE",
         }
@@ -54,7 +54,7 @@ class Blog extends Component {
   async deleteComment({ id }) {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments/${id}`,
+        `${process.env.REACT_APP_BE_URL}/blogPosts/${this.state.blog._id}/comments/${id}`,
         {
           method: "DELETE",
         }
@@ -71,7 +71,7 @@ class Blog extends Component {
   async postComment(e) {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BE_PROD_URL}/blogPosts/${this.state.blog._id}/comments`,
+        `${process.env.REACT_APP_BE_URL}/blogPosts/${this.state.blog._id}/comments`,
         {
           method: "POST",
           body: JSON.stringify({
