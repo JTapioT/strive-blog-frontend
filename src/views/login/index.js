@@ -5,8 +5,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import React, {useState, useEffect} from "react";
 import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Login() {
+
+  
+  const history = useHistory();
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+  const [googleBtnHover, setGoogleBtnHover] = useState(false);
+  
   const formStyle = {
     width: "50vw",
     color: "#28a745",
@@ -17,10 +26,17 @@ function Login() {
     boxShadow: "none",
   };
 
-  const history = useHistory();
+  const googleButton = {
+    border: "1px solid #28a745", 
+    fontWeight: "500",
+    borderRadius: "20px", 
+    padding: "5px", 
+    cursor: "pointer", 
+    width: "50vw",
+    color: googleBtnHover ? "white" : "",
+    backgroundColor: googleBtnHover ? "#28a745" : "",
+  }
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("")
 
   async function handleLogin(event) {
     try {
@@ -43,6 +59,10 @@ function Login() {
     }
   }
 
+  function handleExternalGoogleLogin() {
+    window.location.href=`${process.env.REACT_APP_BE_URL}/login/googleLogin`;
+  }
+
   return (
     <Container style={{ height: "100vh", width: "100vw" }}>
       <Row className="justify-content-center" style={{ marginTop: "40vh" }}>
@@ -52,16 +72,36 @@ function Login() {
         <Form style={formStyle} onClick={handleLogin}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" />
+            <Form.Control
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email"
+            />
           </Form.Group>
           <Form.Group className="mt-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
+            <Form.Control
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
           </Form.Group>
           <Button className="mt-4" variant="outline-success" type="submit">
             Login
           </Button>
         </Form>
+        <div
+          className="d-flex align-items-center mt-3"
+          style={googleButton}
+          onMouseEnter={() => setGoogleBtnHover(true)}
+          onMouseLeave={() => setGoogleBtnHover(false)}
+          onClick={() => handleExternalGoogleLogin()}
+        >
+          <img src="./googleicon.png" height="40" width="40" />
+          <p className="m-0">Login with Google</p>
+        </div>
       </Row>
     </Container>
   );
